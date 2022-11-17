@@ -1,13 +1,17 @@
 package com.nttdata.persistence;
 
-import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Objeto cliente que hace referencia a un tabla T_CLIENT
@@ -17,17 +21,17 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "T_CLIENT")
-public class Client implements Serializable {
+public class Client extends AbstractEntity{
 
 	///////////////
 	// VARIABLES //
 	///////////////
 
-	/** Serial version UID */
+	/** Serial Version */
 	private static final long serialVersionUID = 1L;
-
-	/** Id */
-	private Integer id;
+	
+	/** ID */
+	private Long idClient;
 
 	/** Name */
 	private String name;
@@ -40,33 +44,44 @@ public class Client implements Serializable {
 
 	/** Dni */
 	private String dni;
+	
+	/** Contratos del cliente */
+	private List<Contract> contracts;
 
 	/////////////////////////
 	// GETTERS AND SETTERS //
 	/////////////////////////
-
+	
 	/**
-	 * @return the id
+	 * @return the idClient
 	 */
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Integer getId() {
-		return id;
+	@Column(name="C_CLIENT_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqClientID")
+	@SequenceGenerator(name = "seqClientID", sequenceName = "SEQ_T_CLIENT")
+	public Long getIdClient() {
+		return idClient;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param idClient the idClient to set
 	 */
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdClient(Long idClient) {
+		this.idClient = idClient;
 	}
 
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	/**
 	 * @return the name
 	 */
 
-	@Column(name = "NAME")
+	@Column(name = "C_CLIENT_NAME")
 	public String getName() {
 		return name;
 	}
@@ -82,7 +97,7 @@ public class Client implements Serializable {
 	 * @return the surname
 	 */
 
-	@Column(name = "SURNAME")
+	@Column(name = "C_CLIENT_SURNAME")
 	public String getSurname() {
 		return surname;
 	}
@@ -98,7 +113,7 @@ public class Client implements Serializable {
 	 * @return the secondSurname
 	 */
 
-	@Column(name = "SECOND_SURNAME")
+	@Column(name = "C_CLIENT_SECOND_SURNAME")
 	public String getSecondSurname() {
 		return secondSurname;
 	}
@@ -114,7 +129,7 @@ public class Client implements Serializable {
 	 * @return the dni
 	 */
 
-	@Column(name = "DNI", length = 9, unique = true, nullable = false)
+	@Column(name = "C_CLIENT_DNI", length = 9, unique = true, nullable = false)
 	public String getDni() {
 		return dni;
 	}
@@ -127,16 +142,30 @@ public class Client implements Serializable {
 	}
 
 	/**
-	 * @return the serialversionuid
+	 * @return the contracts
 	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
+	public List<Contract> getContracts() {
+		return contracts;
+	}
+
+	/**
+	 * @param contracts the contracts to set
+	 */
+	public void setContracts(List<Contract> contracts) {
+		this.contracts = contracts;
 	}
 
 	@Override
 	public String toString() {
-		return "Client \n\t[id=" + id + ",\n\t name=" + name + ",\n\t surname=" + surname + ",\n\t secondSurname=" + secondSurname
+		return "Client \n\t[id=" + idClient + ",\n\t name=" + name + ",\n\t surname=" + surname + ",\n\t secondSurname=" + secondSurname
 				+ ",\n\t dni=" + dni + "]\n";
+	}
+
+	@Override
+	@Transient
+	public Long getId() {
+		return this.getIdClient();
 	}
 	
 	
