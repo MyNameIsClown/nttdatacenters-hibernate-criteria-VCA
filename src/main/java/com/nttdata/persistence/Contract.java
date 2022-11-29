@@ -1,6 +1,8 @@
 package com.nttdata.persistence;
 
-import java.util.Date;
+
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 /**
  * Clase contrato
@@ -78,7 +78,6 @@ public class Contract extends AbstractEntity{
 	 * @return the effectiveDate
 	 */
 	@Column(name = "C_CONTRACT_EFFECTIVE_DATE")
-	@Temporal(TemporalType.DATE)
 	public Date getEffectiveDate() {
 		return effectiveDate;
 	}
@@ -94,7 +93,6 @@ public class Contract extends AbstractEntity{
 	 * @return the expirityDate
 	 */
 	@Column(name="C_CONTRACT_EXPIRITY_DATE")
-	@Temporal(TemporalType.DATE)
 	public Date getExpirityDate() {
 		return expirityDate;
 	}
@@ -142,5 +140,13 @@ public class Contract extends AbstractEntity{
 	public Long getId() {
 		return this.getIdContrato();
 	}
+
+	@Override
+	public String toString() {
+		return "Contract \n\t[idContrato=" + idContrato + ", \n\teffectiveDate=" + effectiveDate + ", \n\texpirityDate="
+				+ expirityDate + ", \n\tprice=" + price + ", \n\tclient=" + client + "]";
+	}
+	
+	
 	
 }

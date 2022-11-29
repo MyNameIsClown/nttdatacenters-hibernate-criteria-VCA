@@ -1,5 +1,6 @@
 package com.nttdata.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -62,6 +63,18 @@ public class ContractManagmentServiceImpl implements ContractManagmentServiceI {
 	@Override
 	public List<Contract> listAll() {
 		return contractDao.listAll();
+	}
+
+	@Override
+	public List<Contract> listByPrice(Integer price) {
+		List<Contract> contracts = new ArrayList<>();
+		if(price!=null) {
+			LOG.debug("Listando contratos por el precio");
+			contracts = contractDao.listByPrice(price);
+		}else {
+			LOG.debug("Error | el precio es nulo o invalido, por favor inserte un dato valido");
+		}
+		return contracts;
 	}
 
 }

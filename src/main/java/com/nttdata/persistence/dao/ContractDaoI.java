@@ -1,5 +1,7 @@
 package com.nttdata.persistence.dao;
 
+import java.util.List;
+
 import com.nttdata.persistence.Contract;
 
 /**
@@ -9,5 +11,11 @@ import com.nttdata.persistence.Contract;
  *
  */
 public interface ContractDaoI extends GenericDaoI<Contract>{
+	/**
+	 * Lista los contratos por el id
+	 * @param price
+	 * @return
+	 */
+	public List<Contract> listByPrice (Integer price);
 
 }

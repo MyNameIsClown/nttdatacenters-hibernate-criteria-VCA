@@ -1,6 +1,7 @@
 package com.nttdata.hibernate;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -34,7 +35,7 @@ public class NTTDATAMain {
 		
 		// Parametros de auditoria
 		final String username = "Victor";
-		final Date changesDate = new Date();
+		final Date changesDate = Date.valueOf(LocalDate.now());
 		
 		// Creacion de los clientes
 		Client cliente1 = new Client();
@@ -63,36 +64,36 @@ public class NTTDATAMain {
 		
 		// Creacion de los contratos
 		Contract contract1 = new Contract();
-		contract1.setEffectiveDate(new Date());
-		contract1.setExpirityDate(new Date());
+		contract1.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 11, 16)));
+		contract1.setExpirityDate(Date.valueOf(LocalDate.of(2022, 12, 14)));
 		contract1.setPrice(300);
 		contract1.setClient(cliente2);
 		contract1.setAudit(username, changesDate);
 		
 		Contract contract2 = new Contract();
-		contract2.setEffectiveDate(new Date());
-		contract2.setExpirityDate(new Date());
+		contract2.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 9, 6)));
+		contract2.setExpirityDate(Date.valueOf(LocalDate.of(2022, 12, 30)));
 		contract2.setPrice(500);
 		contract2.setClient(cliente2);
 		contract2.setAudit(username, changesDate);
 		
 		Contract contract3 = new Contract();
-		contract3.setEffectiveDate(new Date());
-		contract3.setExpirityDate(new Date());
+		contract3.setEffectiveDate(Date.valueOf(LocalDate.of(2021, 11, 1)));
+		contract3.setExpirityDate(Date.valueOf(LocalDate.of(2022, 11, 14)));
 		contract3.setPrice(650);
 		contract3.setClient(cliente1);
 		contract3.setAudit(username, changesDate);
 		
 		Contract contract4 = new Contract();
-		contract4.setEffectiveDate(new Date());
-		contract4.setExpirityDate(new Date());
+		contract4.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 12, 1)));
+		contract4.setExpirityDate(Date.valueOf(LocalDate.of(2023, 5, 14)));
 		contract4.setPrice(120);
 		contract4.setClient(cliente1);
 		contract4.setAudit(username, changesDate);
 		
 		Contract contract5 = new Contract();
-		contract5.setEffectiveDate(new Date());
-		contract5.setExpirityDate(new Date());
+		contract5.setEffectiveDate(Date.valueOf(LocalDate.of(2022, 3, 19)));
+		contract5.setExpirityDate(Date.valueOf(LocalDate.of(2022, 8, 14)));
 		contract5.setPrice(380);
 		contract5.setClient(cliente3);
 		contract5.setAudit(username, changesDate);
@@ -114,6 +115,8 @@ public class NTTDATAMain {
 		System.out.println(clientesRegistrados);
 		
 		System.out.println(clientService.listByFullName("Juan", "Lopez", "Lopez"));
+		
+		System.out.println(contractService.listByPrice(300));
 		
 		
 		

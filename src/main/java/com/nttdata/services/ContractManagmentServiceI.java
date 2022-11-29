@@ -38,4 +38,12 @@ public interface ContractManagmentServiceI {
 	 * @return
 	 */
 	public List<Contract> listAll();
+	
+	/**
+	 * Lista los contratos por el precio
+	 * 
+	 * @param price
+	 * @return
+	 */
+	public List<Contract> listByPrice(Integer price);
 }

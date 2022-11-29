@@ -1,5 +1,5 @@
 CREATE TABLESPACE TALLER_HIBERNATE
-    DATAFILE 'taller_hibernate.dbf'
+    DATAFILE 'C:\oraclexe\app\oracle\oradata\XE\taller_hibernate.dbf'
     SIZE 100M
     AUTOEXTEND ON NEXT 100M MAXSIZE UNLIMITED;
 
